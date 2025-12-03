@@ -67,14 +67,17 @@ export function AdminDashboard() {
     }
   };
 
-  const handleMarkAsSold = async (vehicle: Vehicle) => {
+  const handleToggleStatus = async (vehicle: Vehicle) => {
+    const nextStatus = vehicle.status === 'sold' ? 'available' : 'sold';
+
     const { error } = await supabase
       .from('vehicles')
-      .update({ status: 'sold' })
+      .update({ status: nextStatus })
       .eq('id', vehicle.id);
+
     if (error) {
-      console.error('Error marking vehicle as sold:', error);
-      alert('Failed to mark vehicle as sold');
+      console.error('Error updating vehicle status:', error);
+      alert('Failed to update vehicle status');
     }
   };
 
@@ -206,7 +209,7 @@ export function AdminDashboard() {
                 showActions
                 onEdit={setEditingVehicle}
                 onDelete={handleDeleteVehicle}
-                onToggleStatus={handleMarkAsSold}
+                onToggleStatus={handleToggleStatus}
               />
             ))}
           </div>

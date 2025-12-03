@@ -94,14 +94,13 @@ export function VehicleCard({
             </div>
             <button
               onClick={() => onToggleStatus?.(vehicle)}
-              disabled={isSold}
               className={`w-full py-2 rounded-lg transition-colors ${
                 isSold
-                  ? 'bg-slate-600 text-gray-400 cursor-not-allowed'
+                  ? 'bg-amber-600 hover:bg-amber-700 text-white'
                   : 'bg-green-600 hover:bg-green-700 text-white'
               }`}
             >
-              {isSold ? 'Already Sold' : 'Mark as Sold'}
+              {isSold ? 'Mark as Available' : 'Mark as Sold'}
             </button>
           </div>
         )}
