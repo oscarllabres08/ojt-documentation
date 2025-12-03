@@ -1,4 +1,5 @@
 import { useState, useMemo } from 'react';
+import { Search } from 'lucide-react';
 import { Header } from '../components/Header';
 import { VehicleFilters } from '../components/VehicleFilters';
 import { VehicleCard } from '../components/VehicleCard';
@@ -11,6 +12,7 @@ export function Showroom() {
   const { vehicles, loading } = useVehicles();
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [selectedBrand, setSelectedBrand] = useState('All');
+  const [searchQuery, setSearchQuery] = useState('');
   const [selectedVehicle, setSelectedVehicle] = useState<Vehicle | null>(null);
   const [showLoginModal, setShowLoginModal] = useState(false);
 
@@ -24,21 +26,41 @@ export function Showroom() {
       const categoryMatch =
         selectedCategory === 'All' || vehicle.category === selectedCategory;
       const brandMatch = selectedBrand === 'All' || vehicle.make === selectedBrand;
+      const searchMatch =
+        searchQuery.trim() === '' ||
+        vehicle.make.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        vehicle.model.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        vehicle.year.toString().includes(searchQuery);
       const availableMatch = vehicle.status === 'available';
-      return categoryMatch && brandMatch && availableMatch;
+      return categoryMatch && brandMatch && searchMatch && availableMatch;
     });
-  }, [vehicles, selectedCategory, selectedBrand]);
+  }, [vehicles, selectedCategory, selectedBrand, searchQuery]);
 
   return (
     <div className="min-h-screen bg-slate-900">
       <Header onAdminClick={() => setShowLoginModal(true)} />
 
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-12">
-        <div className="mb-8 sm:mb-12">
-          <h2 className="text-3xl sm:text-4xl font-bold text-white mb-2 sm:mb-3">Our Inventory</h2>
-          <p className="text-gray-400 text-base sm:text-lg">
-            Browse our extensive collection of quality vehicles.
-          </p>
+        <div className="mb-6 sm:mb-8 space-y-4">
+          <div>
+            <h2 className="text-3xl sm:text-4xl font-bold text-white mb-2 sm:mb-3">Our Inventory</h2>
+            <p className="text-gray-400 text-base sm:text-lg">
+              Browse our extensive collection of quality vehicles.
+            </p>
+          </div>
+
+          <div className="max-w-xl">
+            <div className="relative">
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5" />
+              <input
+                type="text"
+                placeholder="Search by brand, model, or year..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="w-full pl-10 pr-4 py-3 bg-slate-800 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder:text-gray-500 text-sm sm:text-base"
+              />
+            </div>
+          </div>
         </div>
 
         <VehicleFilters

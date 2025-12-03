@@ -1,6 +1,6 @@
 import { X } from 'lucide-react';
 import { useState, useEffect } from 'react';
-import { Vehicle } from '../lib/supabase';
+import { Vehicle, supabase } from '../lib/supabase';
 
 const MAKES = ['Toyota', 'Honda', 'Ford', 'Hyundai', 'Mitsubishi', 'Suzuki', 'Nissan', 'Mazda', 'Chevrolet'];
 const CATEGORIES = ['Sedan', 'Hatchback', 'SUV', 'Van', 'Pick up'];
@@ -26,6 +26,8 @@ export function VehicleFormModal({ vehicle, onClose, onSubmit }: VehicleFormModa
     image_url: ''
   });
   const [loading, setLoading] = useState(false);
+  const [imageFile, setImageFile] = useState<File | null>(null);
+  const [imagePreview, setImagePreview] = useState<string | null>(null);
 
   useEffect(() => {
     if (vehicle) {
@@ -40,14 +42,51 @@ export function VehicleFormModal({ vehicle, onClose, onSubmit }: VehicleFormModa
         fuel_type: vehicle.fuel_type,
         image_url: vehicle.image_url
       });
+      setImagePreview(vehicle.image_url);
+    } else {
+      setImagePreview(null);
     }
   }, [vehicle]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-    await onSubmit(formData);
-    setLoading(false);
+
+    try {
+      let imageUrlToUse = formData.image_url;
+
+      // If a new image file was selected, upload it to Supabase Storage
+      if (imageFile) {
+        const fileExt = imageFile.name.split('.').pop();
+        const fileName = `${Date.now()}-${Math.random().toString(36).slice(2)}`;
+        const filePath = `vehicles/${fileName}.${fileExt}`;
+
+        const { error: uploadError } = await supabase.storage
+          .from('vehicle-images')
+          .upload(filePath, imageFile);
+
+        if (uploadError) {
+          // eslint-disable-next-line no-alert
+          alert('Failed to upload image. Please try again.');
+          console.error('Image upload error:', uploadError);
+          setLoading(false);
+          return;
+        }
+
+        const { data: publicUrlData } = supabase.storage
+          .from('vehicle-images')
+          .getPublicUrl(filePath);
+
+        imageUrlToUse = publicUrlData.publicUrl;
+      }
+
+      await onSubmit({
+        ...formData,
+        image_url: imageUrlToUse
+      });
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -194,15 +233,33 @@ export function VehicleFormModal({ vehicle, onClose, onSubmit }: VehicleFormModa
           </div>
 
           <div className="mb-6">
-            <label className="block text-gray-300 mb-2 font-medium">Image URL</label>
+            <label className="block text-gray-300 mb-2 font-medium">Vehicle Photo</label>
+            {imagePreview && (
+              <div className="mb-3">
+                <img
+                  src={imagePreview}
+                  alt="Vehicle preview"
+                  className="w-full max-h-56 object-cover rounded-lg border border-slate-700"
+                />
+              </div>
+            )}
             <input
-              type="url"
-              value={formData.image_url}
-              onChange={(e) => setFormData({ ...formData, image_url: e.target.value })}
-              className="w-full px-4 py-3 bg-slate-700 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-              placeholder="https://images.pexels.com/..."
-              required
+              type="file"
+              accept="image/*"
+              onChange={(e) => {
+                const file = e.target.files?.[0] ?? null;
+                setImageFile(file);
+                if (file) {
+                  const previewUrl = URL.createObjectURL(file);
+                  setImagePreview(previewUrl);
+                }
+              }}
+              className="w-full text-sm text-gray-300 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-blue-600 file:text-white hover:file:bg-blue-700"
+              required={!vehicle}
             />
+            <p className="mt-2 text-xs text-gray-400">
+              Upload a clear photo of the vehicle. On mobile, you can choose from your gallery or take a new picture.
+            </p>
           </div>
 
           <button
