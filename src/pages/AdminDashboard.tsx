@@ -11,7 +11,7 @@ const STATUSES = ['All Status', 'available', 'sold'];
 
 export function AdminDashboard() {
   const { signOut } = useAuth();
-  const { vehicles, loading } = useVehicles();
+  const { vehicles, loading, refetch } = useVehicles();
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('All Categories');
   const [selectedStatus, setSelectedStatus] = useState('All Status');
@@ -41,6 +41,7 @@ export function AdminDashboard() {
       alert('Failed to add vehicle');
     } else {
       setShowAddModal(false);
+      refetch();
     }
   };
 
@@ -55,6 +56,7 @@ export function AdminDashboard() {
       alert('Failed to update vehicle');
     } else {
       setEditingVehicle(null);
+      refetch();
     }
   };
 
@@ -64,6 +66,9 @@ export function AdminDashboard() {
     if (error) {
       console.error('Error deleting vehicle:', error);
       alert('Failed to delete vehicle');
+    }
+    else {
+      refetch();
     }
   };
 
@@ -78,6 +83,9 @@ export function AdminDashboard() {
     if (error) {
       console.error('Error updating vehicle status:', error);
       alert('Failed to update vehicle status');
+    }
+    else {
+      refetch();
     }
   };
 
