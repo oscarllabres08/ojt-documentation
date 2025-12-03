@@ -26,7 +26,7 @@ export function VehicleCard({
         <img
           src={vehicle.image_url}
           alt={`${vehicle.make} ${vehicle.model}`}
-          className="w-full h-56 object-cover"
+          className="w-full h-48 sm:h-56 object-cover"
         />
         <div className="absolute top-3 right-3 flex gap-2">
           <span className="px-3 py-1 bg-slate-700 text-white text-sm font-medium rounded-full">
@@ -40,38 +40,38 @@ export function VehicleCard({
         </div>
       </div>
 
-      <div className="p-5">
-        <div className="flex items-start justify-between mb-4">
-          <div>
-            <h3 className="text-xl font-bold text-white">
+      <div className="p-4 sm:p-5">
+        <div className="flex items-start justify-between mb-3 sm:mb-4">
+          <div className="flex-1 min-w-0 pr-2">
+            <h3 className="text-lg sm:text-xl font-bold text-white truncate">
               {vehicle.make} {vehicle.model}
             </h3>
-            <p className="text-gray-400">{vehicle.year}</p>
+            <p className="text-gray-400 text-sm sm:text-base">{vehicle.year}</p>
           </div>
-          <p className="text-2xl font-bold text-blue-500">
+          <p className="text-xl sm:text-2xl font-bold text-blue-500 flex-shrink-0">
             ${vehicle.price.toLocaleString()}
           </p>
         </div>
 
-        <div className="grid grid-cols-3 gap-3 mb-4">
-          <div className="flex items-center space-x-2 text-gray-300">
-            <Gauge className="w-4 h-4" />
-            <span className="text-sm">{vehicle.mileage}</span>
+        <div className="grid grid-cols-3 gap-2 sm:gap-3 mb-3 sm:mb-4">
+          <div className="flex items-center space-x-1 sm:space-x-2 text-gray-300">
+            <Gauge className="w-3 h-3 sm:w-4 sm:h-4 flex-shrink-0" />
+            <span className="text-xs sm:text-sm truncate">{vehicle.mileage}</span>
           </div>
-          <div className="flex items-center space-x-2 text-gray-300">
-            <Settings className="w-4 h-4" />
-            <span className="text-sm">{vehicle.transmission}</span>
+          <div className="flex items-center space-x-1 sm:space-x-2 text-gray-300">
+            <Settings className="w-3 h-3 sm:w-4 sm:h-4 flex-shrink-0" />
+            <span className="text-xs sm:text-sm truncate">{vehicle.transmission}</span>
           </div>
-          <div className="flex items-center space-x-2 text-gray-300">
-            <Fuel className="w-4 h-4" />
-            <span className="text-sm">{vehicle.fuel_type}</span>
+          <div className="flex items-center space-x-1 sm:space-x-2 text-gray-300">
+            <Fuel className="w-3 h-3 sm:w-4 sm:h-4 flex-shrink-0" />
+            <span className="text-xs sm:text-sm truncate">{vehicle.fuel_type}</span>
           </div>
         </div>
 
         {!showActions ? (
           <button
             onClick={() => onViewDetails(vehicle)}
-            className="w-full py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition-colors"
+            className="w-full py-2.5 sm:py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition-colors text-sm sm:text-base"
           >
             View Details
           </button>

@@ -80,41 +80,42 @@ export function AdminDashboard() {
 
   return (
     <div className="min-h-screen bg-slate-900">
-      <header className="bg-slate-900 border-b border-slate-800">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+      <header className="bg-slate-900 border-b border-slate-800 sticky top-0 z-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 sm:py-4">
           <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-3">
-              <Car className="w-8 h-8 text-blue-500" />
-              <h1 className="text-2xl font-bold tracking-tight text-white">VELOCITY MOTORS</h1>
+            <div className="flex items-center space-x-2 sm:space-x-3">
+              <Car className="w-6 h-6 sm:w-8 sm:h-8 text-blue-500 flex-shrink-0" />
+              <h1 className="text-lg sm:text-2xl font-bold tracking-tight text-white truncate">VELOCITY MOTORS</h1>
             </div>
             <button
               onClick={() => signOut()}
-              className="flex items-center space-x-2 px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg transition-colors"
+              className="flex items-center space-x-2 px-3 sm:px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg transition-colors text-sm sm:text-base flex-shrink-0"
             >
               <LogOut className="w-4 h-4" />
-              <span>Exit Admin</span>
+              <span className="hidden sm:inline">Exit Admin</span>
+              <span className="sm:hidden">Exit</span>
             </button>
           </div>
         </div>
       </header>
 
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="flex items-center justify-between mb-8">
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-12">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6 sm:mb-8">
           <div>
-            <h2 className="text-4xl font-bold text-blue-500 mb-2">Admin Dashboard</h2>
-            <p className="text-gray-400 text-lg">Manage your vehicle inventory.</p>
+            <h2 className="text-3xl sm:text-4xl font-bold text-blue-500 mb-2">Admin Dashboard</h2>
+            <p className="text-gray-400 text-base sm:text-lg">Manage your vehicle inventory.</p>
           </div>
           <button
             onClick={() => setShowAddModal(true)}
-            className="flex items-center space-x-2 px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition-colors"
+            className="flex items-center justify-center space-x-2 px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition-colors w-full sm:w-auto"
           >
             <Plus className="w-5 h-5" />
             <span>Add Vehicle</span>
           </button>
         </div>
 
-        <div className="flex flex-wrap gap-4 mb-8">
-          <div className="flex-1 min-w-[250px]">
+        <div className="flex flex-col sm:flex-row gap-4 mb-6 sm:mb-8">
+          <div className="flex-1 w-full sm:min-w-[250px]">
             <div className="relative">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
               <input
@@ -196,7 +197,7 @@ export function AdminDashboard() {
             <p className="text-gray-400 text-lg">No vehicles found matching your filters.</p>
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
             {filteredVehicles.map((vehicle) => (
               <VehicleCard
                 key={vehicle.id}

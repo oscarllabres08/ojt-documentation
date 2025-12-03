@@ -33,10 +33,10 @@ export function Showroom() {
     <div className="min-h-screen bg-slate-900">
       <Header onAdminClick={() => setShowLoginModal(true)} />
 
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="mb-12">
-          <h2 className="text-4xl font-bold text-white mb-3">Our Inventory</h2>
-          <p className="text-gray-400 text-lg">
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-12">
+        <div className="mb-8 sm:mb-12">
+          <h2 className="text-3xl sm:text-4xl font-bold text-white mb-2 sm:mb-3">Our Inventory</h2>
+          <p className="text-gray-400 text-base sm:text-lg">
             Browse our extensive collection of quality vehicles.
           </p>
         </div>
@@ -61,7 +61,7 @@ export function Showroom() {
             <p className="text-gray-400 text-lg">No vehicles found matching your filters.</p>
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
             {filteredVehicles.map((vehicle) => (
               <VehicleCard
                 key={vehicle.id}

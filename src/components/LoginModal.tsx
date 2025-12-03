@@ -30,14 +30,14 @@ export function LoginModal({ onClose }: LoginModalProps) {
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50 p-4">
-      <div className="bg-slate-800 rounded-2xl max-w-md w-full p-8">
+      <div className="bg-slate-800 rounded-xl sm:rounded-2xl max-w-md w-full p-6 sm:p-8">
         <div className="flex items-center justify-between mb-6">
-          <h2 className="text-2xl font-bold text-white">Admin Login</h2>
+          <h2 className="text-xl sm:text-2xl font-bold text-white">Admin Login</h2>
           <button
             onClick={onClose}
-            className="p-2 hover:bg-slate-700 rounded-full transition-colors"
+            className="p-2 hover:bg-slate-700 rounded-full transition-colors flex-shrink-0"
           >
-            <X className="w-6 h-6 text-gray-400" />
+            <X className="w-5 h-5 sm:w-6 sm:h-6 text-gray-400" />
           </button>
         </div>
 
