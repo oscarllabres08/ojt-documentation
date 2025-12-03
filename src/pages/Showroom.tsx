@@ -31,8 +31,8 @@ export function Showroom() {
         vehicle.make.toLowerCase().includes(searchQuery.toLowerCase()) ||
         vehicle.model.toLowerCase().includes(searchQuery.toLowerCase()) ||
         vehicle.year.toString().includes(searchQuery);
-      const availableMatch = vehicle.status === 'available';
-      return categoryMatch && brandMatch && searchMatch && availableMatch;
+      // Show both available and sold vehicles; status is indicated on the card
+      return categoryMatch && brandMatch && searchMatch;
     });
   }, [vehicles, selectedCategory, selectedBrand, searchQuery]);
 

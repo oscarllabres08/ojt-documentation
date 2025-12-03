@@ -38,6 +38,14 @@ export function VehicleCard({
             </span>
           )}
         </div>
+
+        {isSold && !showActions && (
+          <div className="absolute inset-0 bg-black/60 flex items-center justify-center">
+            <span className="px-6 py-3 border-2 border-red-500 text-red-500 text-2xl font-extrabold tracking-[0.3em] uppercase bg-black/80 rounded-lg">
+              SOLD
+            </span>
+          </div>
+        )}
       </div>
 
       <div className="p-4 sm:p-5">
