@@ -1,5 +1,6 @@
-import { Gauge, Fuel, Settings } from 'lucide-react';
+import { Gauge, Fuel, Settings, MessageCircle } from 'lucide-react';
 import { Vehicle } from '../lib/supabase';
+import { generateMessengerUrl } from '../utils/messenger';
 
 interface VehicleCardProps {
   vehicle: Vehicle;
@@ -77,12 +78,23 @@ export function VehicleCard({
         </div>
 
         {!showActions ? (
-          <button
-            onClick={() => onViewDetails(vehicle)}
-            className="w-full py-2.5 sm:py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition-colors text-sm sm:text-base"
-          >
-            View Details
-          </button>
+          <div className="space-y-2">
+            <button
+              onClick={() => onViewDetails(vehicle)}
+              className="w-full py-2.5 sm:py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition-colors text-sm sm:text-base"
+            >
+              View Details
+            </button>
+            <a
+              href={generateMessengerUrl(vehicle)}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-full py-2.5 sm:py-3 bg-green-600 hover:bg-green-700 text-white font-semibold rounded-lg transition-colors text-sm sm:text-base flex items-center justify-center space-x-2"
+            >
+              <MessageCircle className="w-4 h-4 sm:w-5 sm:h-5" />
+              <span>Message</span>
+            </a>
+          </div>
         ) : (
           <div className="space-y-2">
             <div className="grid grid-cols-2 gap-2">
