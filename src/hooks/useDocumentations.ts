@@ -40,7 +40,8 @@ export function useDocumentations() {
         .from('ojt_documentations')
         .select('*')
         .eq('user_id', user.id)
-        .order('date', { ascending: false });
+        .order('date', { ascending: true })
+        .order('created_at', { ascending: true });
 
       if (error) throw error;
       setDocumentations(data || []);
