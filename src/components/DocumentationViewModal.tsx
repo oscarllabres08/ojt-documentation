@@ -132,8 +132,8 @@ export function DocumentationViewModal({
           )}
 
           <div className="px-4 sm:px-6 py-4">
-            <h3 className="text-slate-900 font-semibold mb-2 text-lg">Details</h3>
-            <p className="text-slate-700 whitespace-pre-wrap break-words">
+            <h3 className="text-emerald-200 font-semibold mb-2 text-lg">Details</h3>
+            <p className="text-slate-200 whitespace-pre-wrap break-words">
               {documentation.description}
             </p>
           </div>
