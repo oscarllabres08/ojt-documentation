@@ -20,3 +20,14 @@ export interface Vehicle {
   created_at: string;
   updated_at: string;
 }
+
+export interface OJTDocumentation {
+  id: string;
+  user_id: string;
+  title: string;
+  date: string;
+  description: string;
+  image_urls: string[];
+  created_at: string;
+  updated_at: string;
+}
