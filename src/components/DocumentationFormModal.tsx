@@ -169,21 +169,21 @@ export function DocumentationFormModal({
   }, [imagePreviews]);
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50 p-4 overflow-y-auto">
-      <div className="bg-slate-800 rounded-2xl max-w-3xl w-full my-8">
+    <div className="fixed inset-0 bg-black/80 flex items-center justify-center z-50 p-4 overflow-y-auto">
+      <div className="bg-slate-900 rounded-2xl max-w-3xl w-full my-8 shadow-xl border border-emerald-500/30">
         <div className="p-6 border-b border-slate-700">
           <div className="flex items-center justify-between">
-            <h2 className="text-2xl font-bold text-white">
+            <h2 className="text-2xl font-semibold text-emerald-200">
               {documentation ? 'Edit Documentation' : 'Add Documentation'}
             </h2>
             <button
               onClick={onClose}
-              className="p-2 hover:bg-slate-700 rounded-full transition-colors"
+              className="p-2 hover:bg-slate-800 rounded-full transition-colors"
             >
-              <X className="w-6 h-6 text-gray-400" />
+              <X className="w-6 h-6 text-slate-300" />
             </button>
           </div>
-          <p className="text-gray-400 mt-1">
+          <p className="text-slate-300 mt-1">
             {documentation
               ? 'Update your documentation details below.'
               : 'Document your OJT activities for this day.'}
@@ -193,41 +193,41 @@ export function DocumentationFormModal({
         <form onSubmit={handleSubmit} className="p-6">
           <div className="space-y-4 mb-6">
             <div>
-              <label className="block text-gray-300 mb-2 font-medium">Title (Day Number)</label>
+              <label className="block text-slate-200 mb-2 font-medium">Title (Day Number)</label>
               <input
                 type="text"
                 value={formData.title}
                 onChange={(e) => setFormData({ ...formData, title: e.target.value })}
-                className="w-full px-4 py-3 bg-slate-700 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full px-4 py-3 bg-slate-900 text-slate-100 rounded-lg border border-emerald-500/40 focus:outline-none focus:ring-2 focus:ring-emerald-500"
                 placeholder="e.g., Day 1, Day 2"
                 required
               />
             </div>
 
             <div>
-              <label className="block text-gray-300 mb-2 font-medium">Date</label>
+              <label className="block text-slate-200 mb-2 font-medium">Date</label>
               <input
                 type="date"
                 value={formData.date}
                 onChange={(e) => setFormData({ ...formData, date: e.target.value })}
-                className="w-full px-4 py-3 bg-slate-700 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full px-4 py-3 bg-slate-900 text-slate-100 rounded-lg border border-emerald-500/40 focus:outline-none focus:ring-2 focus:ring-emerald-500"
                 required
               />
             </div>
 
             <div>
-              <label className="block text-gray-300 mb-2 font-medium">What did you do today?</label>
+              <label className="block text-slate-200 mb-2 font-medium">What did you do today?</label>
               <textarea
                 value={formData.description}
                 onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-                className="w-full px-4 py-3 bg-slate-700 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 min-h-[120px] resize-y"
+                className="w-full px-4 py-3 bg-slate-900 text-slate-100 rounded-lg border border-emerald-500/40 focus:outline-none focus:ring-2 focus:ring-emerald-500 min-h-[120px] resize-y"
                 placeholder="Describe your activities, tasks, and learnings for this day..."
                 required
               />
             </div>
 
             <div>
-              <label className="block text-gray-300 mb-2 font-medium">
+              <label className="block text-slate-200 mb-2 font-medium">
                 Upload Images (up to {MAX_IMAGES} images)
               </label>
               {imagePreviews.length > 0 && (
@@ -251,13 +251,13 @@ export function DocumentationFormModal({
                 </div>
               )}
               {imagePreviews.length < MAX_IMAGES && (
-                <label className="flex flex-col items-center justify-center w-full h-32 border-2 border-dashed border-slate-600 rounded-lg cursor-pointer hover:border-blue-500 transition-colors">
+                <label className="flex flex-col items-center justify-center w-full h-32 border-2 border-dashed border-emerald-500/60 rounded-lg cursor-pointer hover:border-emerald-400 transition-colors bg-slate-900">
                   <div className="flex flex-col items-center justify-center pt-5 pb-6">
-                    <Upload className="w-8 h-8 mb-2 text-gray-400" />
-                    <p className="text-sm text-gray-400">
+                    <Upload className="w-8 h-8 mb-2 text-emerald-400" />
+                    <p className="text-sm text-slate-200">
                       Click to upload or drag and drop
                     </p>
-                    <p className="text-xs text-gray-500 mt-1">
+                    <p className="text-xs text-slate-400 mt-1">
                       {imagePreviews.length} / {MAX_IMAGES} images
                     </p>
                   </div>
@@ -271,15 +271,15 @@ export function DocumentationFormModal({
                 </label>
               )}
               {imagePreviews.length >= MAX_IMAGES && (
-                <p className="text-sm text-gray-400 text-center py-4">
+                <p className="text-sm text-slate-300 text-center py-4">
                   Maximum {MAX_IMAGES} images reached
                 </p>
               )}
             </div>
           </div>
 
-          {error && (
-            <div className="mb-4 p-3 bg-red-900 bg-opacity-50 border border-red-500 rounded-lg text-red-200">
+        {error && (
+          <div className="mb-4 p-3 bg-red-900/60 border border-red-500 rounded-lg text-red-100">
               {error}
             </div>
           )}
@@ -287,7 +287,7 @@ export function DocumentationFormModal({
           <button
             type="submit"
             disabled={loading}
-            className="w-full py-3 bg-blue-600 hover:bg-blue-700 disabled:bg-blue-800 disabled:cursor-not-allowed text-white font-semibold rounded-lg transition-colors"
+            className="w-full py-3 bg-emerald-500 hover:bg-emerald-400 disabled:bg-emerald-500/60 disabled:cursor-not-allowed text-black font-semibold rounded-lg transition-colors"
           >
             {loading ? 'Saving...' : documentation ? 'Update Documentation' : 'Add Documentation'}
           </button>

@@ -42,8 +42,18 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const signUp = async (email: string, password: string) => {
     try {
-      const { error } = await supabase.auth.signUp({ email, password });
+      // Disable email confirmation - user will be signed in immediately
+      const { data, error } = await supabase.auth.signUp({
+        email,
+        password,
+        options: {
+          emailRedirectTo: undefined,
+          data: {}
+        }
+      });
       if (error) throw error;
+      // If email confirmation is disabled, user is automatically signed in
+      // The auth state change will be handled by the useEffect listener
       return { error: null };
     } catch (error) {
       return { error: error as Error };
