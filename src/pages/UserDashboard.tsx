@@ -120,6 +120,16 @@ export function UserDashboard() {
               <span>Add Your First Documentation</span>
             </button>
           </div>
+        ) : documentations.length === 1 ? (
+          <div className="max-w-md mx-auto">
+            <DocumentationCard
+              documentation={documentations[0]}
+              showActions
+              onEdit={setEditingDoc}
+              onDelete={handleDeleteDocumentation}
+              onView={setViewingDoc}
+            />
+          </div>
         ) : (
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 sm:gap-6">
             {documentations.map((doc) => (
